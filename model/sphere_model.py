@@ -9,8 +9,9 @@ class Sphere:
         self.diffuse = diffuse
         self.specular = specular
         self.shininess = shininess
-        
-    def intersect(self, v, d):
+
+    def intersect(self, s, d):
+        v = s-self.center
         D = math.pow(np.dot(v, d), 2)-(np.dot(v, v)-math.pow(self.radius, 2))
         if D > 0:
             p_t = -np.dot(v, d)+np.sqrt(D)
@@ -19,8 +20,8 @@ class Sphere:
         elif D == 0:
             t = -np.dot(v, d)+np.sqrt(D)
         else:
-            t = -1
+            t = np.inf
         return t
         
     def get_normal(self, x):
-        return (self.center-x)/np.linalg.norm(self.center-x)
+        return self.center-x
