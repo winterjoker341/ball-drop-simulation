@@ -5,23 +5,21 @@ def normalize(vec):
     return vec/np.linalg.norm(vec)
 
 class ImageModel:
-    def __init__(self, light, objects, size):
+    def __init__(self, camera, light, objects, size):
         self._light = light
         self._objects = objects
         self._size = size
-        self.target = np.array([0, 0, 0])
-        self.eye = np.array([0, 0, -100])
-        self.vec_v = np.array([0, 1, 0])
+        self._camera = camera
         self.viewport = np.zeros((self._size[0], self._size[1], 3))
         self.pre_calculations()
         self.calculate_viewport_size()
         self.calculate_shifting_vectors()
 
     def pre_calculations(self):
-        self.vec_t_n = normalize(self.target-self.eye)
-        self.vec_b_n = normalize(np.cross(self.vec_v, self.vec_t_n))
-
+        self.vec_t_n = normalize(self._camera.target-self._camera.eye)
+        self.vec_b_n = normalize(np.cross(self._camera.vec_v, self.vec_t_n))
         self.vec_v_n = np.cross(self.vec_t_n, self.vec_b_n)
+
     def calculate_viewport_size(self):
         self.g_x = (self._size[1]/2)*math.tan(math.pi/4)
         self.g_y = self.g_x*(self._size[0]-1)/(self._size[1]-1)
@@ -35,7 +33,7 @@ class ImageModel:
         for i in range(1, self._size[0]+1):
             for j in range(1, self._size[1]+1):
                 vec_r_ij = normalize(self.vec_p_1m+self.vec_q_x*(i-1)+self.vec_q_y*(j-1))
-                self.viewport[i-1][j-1] = np.clip(self.phong_reflection_model(self._light, self._objects, self.eye, vec_r_ij), 0, 1)
+                self.viewport[i-1][j-1] = np.clip(self.phong_reflection_model(self._light, self._objects, self._camera.eye, vec_r_ij), 0, 1)
     
     def phong_reflection_model(self, light, objects, s, d):
         t = np.inf
