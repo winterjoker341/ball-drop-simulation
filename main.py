@@ -5,17 +5,18 @@ from model.image_model import ImageModel
 from viewmodel.image_view_model import ImageViewModel
 from view.image_view import ImageView
 from model.light_model import Light
-from model.sphere_model import Sphere
-from model.plane_model import Plane
+from model.camera_model import Camera
+from model.object_model import Sphere, Plane
 
 def main():
+    camera = Camera(np.array([0, 0, 0]), np.array([0, 0, -100]), np.array([0, 1, 0]))
     light = Light(np.array([-100, -100, 0]), np.array([1, 1, 1]), np.array([1, 1, 1]), np.array([1, 1, 1]))
     objects = [
         Sphere(np.array([-200, 0, 100]), 30, np.array([1, 0, 0]), np.array([1, 0, 0]), np.array([1, 0, 0]), 80),
         Plane(np.array([150, 0, 150]), np.array([1, 0, 0]), np.array([0, 1, 0]), np.array([0, 1, 0]), np.array([0, 1, 0]), 100)
     ]
     app = QApplication(sys.argv) # ^^
-    model = ImageModel(light, objects, [80, 80])
+    model = ImageModel(camera, light, objects, [80, 80])
     viewModel = ImageViewModel(model)
     view = ImageView(viewModel)
     view.show()
