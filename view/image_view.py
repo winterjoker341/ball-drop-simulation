@@ -17,18 +17,12 @@ class ImageView(QWidget):
         self.run_button = QPushButton('RUN')
         self.run_button.clicked.connect(self.run)
         self.layout.addWidget(self.run_button)
-        self.stop_button = QPushButton('STOP')
-        self.stop_button.clicked.connect(self.stop)
-        self.layout.addWidget(self.stop_button)
         self.setLayout(self.layout)
     
     def run(self):
         self.timer = QTimer()
         self.timer.timeout.connect(self._viewModel.calculations)
         self.timer.start(0)
-    
-    def stop(self):
-        self.timer.stop()
     
     def update_pixmap(self, viewport):
         height, width, channels = viewport.shape
