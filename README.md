@@ -10,7 +10,7 @@ After searching and studying, I learned that in order to express 3D objects on a
 
 I was happy when I actually succeeded, but I couldn't shake the feeling that something was missing. So I decided to add animation. While thinking about what animation to add, the idea of ​​dropping a ball from above occurred to me.
 
-When I created an animation by applying the free fall motion equation, I could see the screen moving with jerks. While looking for a way to express smoother movement, I found out that it was possible to extend Python to C/C++. Although I couldn't create smooth movements because I didn't have enough time to study, it was a project where I learned a lot.
+When I created an animation by applying the free fall motion equation, I could see the screen moving and being interrupted by the calculation time. While looking for a way to express smoother movement, I found out that it was possible to extend Python to C/C++. Although I couldn't create smooth movements because I didn't have enough time to study, it was a project where I learned a lot.
 
 Until now, in order to express 3D objects and their movements, you had to learn C++ or C#. Python is also possible, but it was difficult to express 3D objects. Now, you can easily express 3D objects and create animations with Python.
 
